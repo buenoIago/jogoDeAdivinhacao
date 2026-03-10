@@ -1,3 +1,7 @@
+# JOGO DE ADIVINHAÇÃO
+
+![alt text](WindowsTerminal_jExKkEGoYz.gif)
+
 ## INTRODUÇÃO
 
 Este jogo de adivinhação foi desenvolvido em C# e funciona no Console. O objetivo do jogador é descobrir um número secreto gerado aleatoriamente pelo programa dentro de um número limitado de tentativas. No início de cada rodada, o jogador escolhe um nível de dificuldade, que define a quantidade de tentativas disponíveis e o intervalo possível do número secreto, além de impedir números repetidos e registrar os chutes realizados. Ao final da rodada, o jogador pode iniciar uma nova partida ou encerrar o jogo.
@@ -18,7 +22,7 @@ Este jogo de adivinhação foi desenvolvido em C# e funciona no Console. O objet
 
 ## Como utilizar o programa
 
-1. Clone o repositório ou baixo o código comprimido em .zip.
+1. Clone o repositório ou baixe o código comprimido em .zip.
 2. Abra o emulador de terminal e navegue até a pasta raiz.
 3. Utilize o comando abaixo para restaurar as dependências do projeto.
 

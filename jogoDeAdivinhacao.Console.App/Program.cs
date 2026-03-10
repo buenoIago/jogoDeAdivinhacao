@@ -6,7 +6,7 @@ Console.Clear();
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Bem Vindo ao Jogo de Adivinhação! ");
 Console.WriteLine("--------------------------------------------------"); 
-Thread.Sleep(5000);
+Thread.Sleep(1000);
 
 Console.WriteLine("Carregando o jogo...");  
 Console.WriteLine("--------------------------------------------------");
