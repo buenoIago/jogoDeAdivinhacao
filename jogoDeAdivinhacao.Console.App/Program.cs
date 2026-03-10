@@ -14,19 +14,20 @@ Thread.Sleep(2000);
 
 while (true)
 {
+  int[] numerosDigitados = new int [100];
+  int contadorNumerosDigitados = 0;
+  int pontuacao = 1000;
+
+  System.Console.WriteLine("Iniciando uma nova rodada...\n");  
+  Thread.Sleep(1000);
+
+  Console.WriteLine("Escolha o nível de dificuldade: \n1 - Fácil (10 tentativas)\n2 - Médio (5 tentativas)\n3 - Difícil (3 tentativas)");
     
-    int numeroAleatorio = RandomNumberGenerator.GetInt32(1, 21);
+  Console.Write("Digite sua escolha: ");
+  string dificuldade = Console.ReadLine();
 
-    System.Console.WriteLine("Iniciando uma nova rodada...\n");  
-    Thread.Sleep(1000);
-
-    Console.WriteLine("Escolha o nível de dificuldade: \n1 - Fácil (10 tentativas)\n2 - Médio (5 tentativas)\n3 - Difícil (3 tentativas)");
-    
-    Console.Write("Digite sua escolha: ");
-    string dificuldade = Console.ReadLine();
-
-    int numeroMaximo;
-    int tentativasMaximas;
+  int numeroMaximo;
+  int tentativasMaximas;
 
     switch (dificuldade)
     {
@@ -53,15 +54,43 @@ while (true)
       continue;
     }
 
+    int numeroAleatorio = RandomNumberGenerator.GetInt32(1, numeroMaximo + 1);
+
       for (int tentativa = 1; tentativa <= tentativasMaximas; tentativa++)
       {
         Console.Clear();
         Console.WriteLine($"Tentativa {tentativa} de {tentativasMaximas}");
 
-      Console.WriteLine($"\nDigite um número entre 1 e {numeroMaximo}: ");
+        Console.WriteLine($"\nDigite um número entre 1 e {numeroMaximo}: ");
 
-      string chute = Console.ReadLine();
-      int numeroDigitado = Convert.ToInt32(chute);
+        string chute = Console.ReadLine();
+        int numeroDigitado = Convert.ToInt32(chute);
+
+        bool numeroRepetido = false;
+
+        for (int indiceChecado = 0; indiceChecado < numerosDigitados.Length; indiceChecado++)
+        {
+          if (numerosDigitados[indiceChecado] == numeroDigitado)
+          {
+            numeroRepetido = true;
+            break;
+          }
+        }
+
+          if (numeroRepetido == true)
+          {
+            Console.WriteLine("\nVocê já digitou esse número, tente novamente!");
+            Console.WriteLine("Clique ENTER para continuar...\n");
+            Console.ReadLine();
+            tentativa--;
+            continue;
+          }
+
+          if (contadorNumerosDigitados < numerosDigitados.Length)
+          {
+          numerosDigitados[contadorNumerosDigitados] = numeroDigitado;
+          contadorNumerosDigitados++;
+          }
 
           if (numeroDigitado == numeroAleatorio)
           {
@@ -75,32 +104,53 @@ while (true)
           else if (numeroDigitado > numeroAleatorio)
           {
           Console.WriteLine("\nO número digitado foi maior que o número secreto.\n");  
-          Thread.Sleep(2500);       
+          Thread.Sleep(2000);       
           }
 
           else
           {      
           Console.WriteLine("\nO número digitado foi menor que o número secreto.\n");    
-          Thread.Sleep(2500);         
+          Thread.Sleep(2000);         
+          }
+          int diferencaNumerica = Math.Abs(numeroAleatorio - numeroDigitado);
+
+          if (diferencaNumerica >= 10)
+          {
+            pontuacao -= 100;
+          }
+          else if (diferencaNumerica >= 5)
+          {
+            pontuacao -= 50;
+          }
+          else
+          {
+            pontuacao -= 20;
           }
 
           if (tentativa == tentativasMaximas)
           {
-            Console.WriteLine($"Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}");
+            Console.WriteLine($"Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}.");
             Thread.Sleep(2000);
           }      
       }
+      Thread.Sleep(1000);
+      Console.WriteLine($"Sua pontuação é {pontuacao}");
+      Console.WriteLine("Clique ENTER para continuar...\n");
+      Console.ReadLine();
 
-          Console.WriteLine("--------------------------------------------------");
-          Console.WriteLine("Deseja jogar novamente? (s/n)");
-          string? opcaoContinuar = Console.ReadLine();
-          Console.WriteLine("--------------------------------------------------");
 
-          if (opcaoContinuar?.ToUpper() != "S")
-          {
-          Console.WriteLine("\nEncerrando o programa. Até mais...\n");
-          break;
-          }
+      Console.WriteLine("Deseja jogar novamente? (s/n)");
+      string? opcaoContinuar = Console.ReadLine();
+      Console.WriteLine("--------------------------------------------------");
 
-          Thread.Sleep(1000);
-}
+      if (opcaoContinuar?.ToUpper() != "S")
+      {
+      Thread.Sleep(0750);
+      Console.WriteLine("Encerrando o programa. Até mais...");
+      Console.WriteLine("--------------------------------------------------");
+      break;
+      }
+      Console.Clear();
+      Thread.Sleep(1000);
+      
+  }
