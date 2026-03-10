@@ -14,6 +14,7 @@ Thread.Sleep(2000);
 
 while (true)
 {
+  
   int[] numerosDigitados = new int [100];
   int contadorNumerosDigitados = 0;
   int pontuacao = 1000;
@@ -94,9 +95,11 @@ while (true)
 
           if (numeroDigitado == numeroAleatorio)
           {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n--------------------------------------------------");
             Console.WriteLine("Parabéns! Você acertou o número!");
             Console.WriteLine("--------------------------------------------------\n");
+            Console.ResetColor();
             Thread.Sleep(2000);
             break;
           }
@@ -129,7 +132,9 @@ while (true)
 
           if (tentativa == tentativasMaximas)
           {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}.");
+            Console.ResetColor();
             Thread.Sleep(2000);
           }      
       }
@@ -145,7 +150,7 @@ while (true)
 
       if (opcaoContinuar?.ToUpper() != "S")
       {
-      Thread.Sleep(0750);
+      Thread.Sleep(750);
       Console.WriteLine("Encerrando o programa. Até mais...");
       Console.WriteLine("--------------------------------------------------");
       break;
