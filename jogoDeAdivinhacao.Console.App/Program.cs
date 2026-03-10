@@ -2,19 +2,19 @@
 using System.Security.Cryptography;
 
 Console.Clear();
-
+Thread.Sleep(3000);
 Console.WriteLine("--------------------------------------------------");
 Console.WriteLine("Bem Vindo ao Jogo de Adivinhação! ");
 Console.WriteLine("--------------------------------------------------"); 
 Thread.Sleep(1000);
 
 Console.WriteLine("Carregando o jogo...");  
-Console.WriteLine("--------------------------------------------------"); 
+Console.WriteLine("--------------------------------------------------");
 Thread.Sleep(2000);
 
 while (true)
 {
-  
+
   int[] numerosDigitados = new int [100];
   int contadorNumerosDigitados = 0;
   int pontuacao = 1000;
@@ -133,7 +133,7 @@ while (true)
           if (tentativa == tentativasMaximas)
           {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}.");
+            Console.WriteLine($"FIM DE JOGO!\nQue pena, Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}.");
             Console.ResetColor();
             Thread.Sleep(2000);
           }      
@@ -153,9 +153,10 @@ while (true)
       Thread.Sleep(750);
       Console.WriteLine("Encerrando o programa. Até mais...");
       Console.WriteLine("--------------------------------------------------");
+      Thread.Sleep(3000);
       break;
       }
       Console.Clear();
       Thread.Sleep(1000);
       
-  }
+}
