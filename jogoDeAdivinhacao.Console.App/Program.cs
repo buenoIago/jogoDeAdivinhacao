@@ -153,7 +153,6 @@ while (true)
       Thread.Sleep(750);
       Console.WriteLine("Encerrando o programa. Até mais...");
       Console.WriteLine("--------------------------------------------------");
-      Thread.Sleep(3000);
       break;
       }
       Console.Clear();
