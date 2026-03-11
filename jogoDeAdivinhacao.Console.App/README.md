@@ -1,6 +1,6 @@
 # JOGO DE ADIVINHAÇÃO
 
-![alt text](WindowsTerminal_jExKkEGoYz.gif)
+![alt text](WindowsTerminal_hVtVCuMmps.gif)
 
 ## INTRODUÇÃO
 

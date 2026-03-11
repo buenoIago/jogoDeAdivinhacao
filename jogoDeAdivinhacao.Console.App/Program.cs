@@ -22,8 +22,7 @@ class Program
           
         Thread.Sleep(1000);        
       }
-  }
-  
+  }  
    static string? ExibirMenuEscolhaDificuldade()
   {
     Console.Clear();
@@ -181,7 +180,6 @@ class Program
 
         }
   }
-
     static bool jogadorDesejaContinuar()
     {
         Console.WriteLine("Deseja jogar novamente? (s/n)");
