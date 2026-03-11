@@ -1,36 +1,57 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-Console.Clear();
-
-Console.WriteLine("--------------------------------------------------");
-Console.WriteLine("Bem Vindo ao Jogo de Adivinhação! ");
-Console.WriteLine("--------------------------------------------------"); 
-Thread.Sleep(1000);
-
-Console.WriteLine("Carregando o jogo...");  
-Console.WriteLine("--------------------------------------------------");
-Thread.Sleep(2000);
-
-while (true)
+class Program
 {
+  static void Main(string [] args)
+  {
+      while (true)
+      {
 
-  int[] numerosDigitados = new int [100];
-  int contadorNumerosDigitados = 0;
-  int pontuacao = 1000;
+        string? dificuldadeEscolhida = ExibirMenuEscolhaDificuldade();
 
-  System.Console.WriteLine("Iniciando uma nova rodada...\n");  
-  Thread.Sleep(1000);
+        int[] configuracoes = ConfigurarPartida(dificuldadeEscolhida);
 
-  Console.WriteLine("Escolha o nível de dificuldade: \n1 - Fácil (10 tentativas)\n2 - Médio (5 tentativas)\n3 - Difícil (3 tentativas)");
-    
-  Console.Write("Digite sua escolha: ");
-  string dificuldade = Console.ReadLine();
+        int numeroMaximo = configuracoes[0];
+        int tentativasMaximas = configuracoes[1];
 
-  int numeroMaximo;
-  int tentativasMaximas;
+        ExecutarPartida(numeroMaximo, tentativasMaximas);
 
-    switch (dificuldade)
+        if (!jogadorDesejaContinuar())
+           break;
+          
+        Thread.Sleep(1000);        
+      }
+  }
+  
+   static string? ExibirMenuEscolhaDificuldade()
+  {
+    Console.Clear();
+
+    Console.WriteLine("--------------------------------------------------");
+    Console.WriteLine("Bem Vindo ao Jogo de Adivinhação! ");
+    Console.WriteLine("--------------------------------------------------"); 
+    Thread.Sleep(1000);
+
+    Console.WriteLine("Carregando o jogo...");  
+    Console.WriteLine("--------------------------------------------------");
+    Thread.Sleep(2000);
+    Console.WriteLine("Iniciando uma nova rodada...\n");  
+    Thread.Sleep(1000);
+
+    Console.WriteLine("Escolha o nível de dificuldade: \n1 - Fácil (10 tentativas)\n2 - Médio (5 tentativas)\n3 - Difícil (3 tentativas)");
+        
+    Console.Write("Digite sua escolha: ");
+    string dificuldade = Console.ReadLine();
+
+    return dificuldade;
+  }
+  static int[] ConfigurarPartida(string? dificuldadeEscolhida)
+  {
+    int numeroMaximo = 0;
+    int tentativasMaximas = 0;
+
+    switch (dificuldadeEscolhida)
     {
       case "1":
       numeroMaximo = 20;
@@ -52,12 +73,27 @@ while (true)
       Console.WriteLine("Selecione uma dificuldade válida.");
       Console.WriteLine("Clique ENTER para continuar...");
       Console.ReadLine();
-      continue;
-    }
+      break;
+      }
+
+      int[] configuracoes = new int[2];
+
+      configuracoes[0] = numeroMaximo;
+      configuracoes[1] = tentativasMaximas;
+      
+      return configuracoes;
+  }
+
+  static void ExecutarPartida(int numeroMaximo, int tentativasMaximas)
+  {
+
+    int[] numerosDigitados = new int [tentativasMaximas];
+    int contadorNumerosDigitados = 0;
+    int pontuacao = 1000;
 
     int numeroAleatorio = RandomNumberGenerator.GetInt32(1, numeroMaximo + 1);
 
-      for (int tentativa = 1; tentativa <= tentativasMaximas; tentativa++)
+    for (int tentativa = 1; tentativa <= tentativasMaximas; tentativa++)
       {
         Console.Clear();
         Console.WriteLine($"Tentativa {tentativa} de {tentativasMaximas}");
@@ -89,8 +125,8 @@ while (true)
 
           if (contadorNumerosDigitados < numerosDigitados.Length)
           {
-          numerosDigitados[contadorNumerosDigitados] = numeroDigitado;
-          contadorNumerosDigitados++;
+            numerosDigitados[contadorNumerosDigitados] = numeroDigitado;
+            contadorNumerosDigitados++;
           }
 
           if (numeroDigitado == numeroAleatorio)
@@ -98,23 +134,24 @@ while (true)
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n--------------------------------------------------");
             Console.WriteLine("Parabéns! Você acertou o número!");
-            Console.WriteLine("--------------------------------------------------\n");
+            Console.WriteLine("--------------------------------------------------");
             Console.ResetColor();
             Thread.Sleep(2000);
             break;
-          }
+           }
 
           else if (numeroDigitado > numeroAleatorio)
           {
-          Console.WriteLine("\nO número digitado foi maior que o número secreto.\n");  
-          Thread.Sleep(2000);       
+            Console.WriteLine("\nO número digitado foi maior que o número secreto.\n");  
+            Thread.Sleep(2000);       
           }
 
           else
           {      
-          Console.WriteLine("\nO número digitado foi menor que o número secreto.\n");    
-          Thread.Sleep(2000);         
+            Console.WriteLine("\nO número digitado foi menor que o número secreto.");    
+            Thread.Sleep(2000);         
           }
+
           int diferencaNumerica = Math.Abs(numeroAleatorio - numeroDigitado);
 
           if (diferencaNumerica >= 10)
@@ -125,7 +162,7 @@ while (true)
           {
             pontuacao -= 50;
           }
-          else
+           else
           {
             pontuacao -= 20;
           }
@@ -133,29 +170,32 @@ while (true)
           if (tentativa == tentativasMaximas)
           {
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("--------------------------------------------------------------------");
             Console.WriteLine($"FIM DE JOGO!\nQue pena, Você usou todas as suas tentivas! O número secreto era {numeroAleatorio}.");
+            Console.WriteLine("--------------------------------------------------------------------");
             Console.ResetColor();
             Thread.Sleep(2000);
-          }      
-      }
-      Thread.Sleep(1000);
-      Console.WriteLine($"Sua pontuação é {pontuacao}");
-      Console.WriteLine("Clique ENTER para continuar...\n");
-      Console.ReadLine();
+          }     
+          Console.WriteLine($"Sua pontuação é {pontuacao}");
+          Thread.Sleep(3000);
 
+        }
+  }
 
-      Console.WriteLine("Deseja jogar novamente? (s/n)");
-      string? opcaoContinuar = Console.ReadLine();
-      Console.WriteLine("--------------------------------------------------");
+    static bool jogadorDesejaContinuar()
+    {
+        Console.WriteLine("Deseja jogar novamente? (s/n)");
+        string? opcaoContinuar = Console.ReadLine();
+        
+          if (opcaoContinuar?.ToUpper() != "S")
+          {
+          Thread.Sleep(750);
+          Console.WriteLine("--------------------------------------------------");
+          Console.WriteLine("Encerrando o programa. Até mais...");
+          Console.WriteLine("--------------------------------------------------");
+          return false;
+          }
 
-      if (opcaoContinuar?.ToUpper() != "S")
-      {
-      Thread.Sleep(750);
-      Console.WriteLine("Encerrando o programa. Até mais...");
-      Console.WriteLine("--------------------------------------------------");
-      break;
-      }
-      Console.Clear();
-      Thread.Sleep(1000);
-      
+      return true;    
+    }
 }
